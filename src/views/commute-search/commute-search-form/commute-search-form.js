@@ -10,32 +10,7 @@ import CustomButtonGroup from "../../../components/custom-button-group";
 import buttonOptionsConfig from "../../../config/button-options-config";
 import useStyles from "./commute-search-form.styles";
 
-const options = [
-  {
-    label: "London",
-    id: "London"
-  },
-  {
-    label: "Paris",
-    id: "Paris"
-  },
-  {
-    label: "New York",
-    id: "New York"
-  },
-  {
-    label: "Moscow",
-    id: "Moscow"
-  },
-  {
-    label: "Madrid",
-    id: "Madrid"
-  },
-  {
-    label: "Berlin",
-    id: "Berlin"
-  }
-];
+import options from "../../../mocks/places-mock-data";
 
 const initialFormState = {
   from: null,
