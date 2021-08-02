@@ -13,6 +13,5 @@ export const fetchBestMatchingDeals = ({ queryKey }) => {
   urlToUse.searchParams.append("from", from);
   urlToUse.searchParams.append("to", to);
   urlToUse.searchParams.append("type", type);
-  console.log({ urlToUse });
   return apiCall(urlToUse);
 };

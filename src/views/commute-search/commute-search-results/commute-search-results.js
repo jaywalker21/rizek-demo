@@ -23,8 +23,6 @@ const CommuteSearchResults = (props) => {
     fetchBestMatchingDeals
   );
 
-  console.log({ isLoading, data, error });
-
   const renderCards = () => {
     const commuteCards = commutes.map(
       ({ transport, arrival, departure, duration, cost, reference }) => {
