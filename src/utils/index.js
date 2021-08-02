@@ -30,3 +30,11 @@ export const formatTime = (duration) => {
   const { h: hour, m: minutes } = duration;
   return `${hour}h${minutes}`;
 };
+
+export const apiCall = async (endpoint) => {
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return await response.json();
+};

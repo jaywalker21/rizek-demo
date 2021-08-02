@@ -4,13 +4,17 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 
+import { useQuery } from "react-query";
+
 import CustomAutocomplete from "../../../components/custom-autocomplete";
 import CustomButtonGroup from "../../../components/custom-button-group";
+import CustomAlert from "../../../components/custom-alert";
+import CommuteSearchFormSkeleton from "./commute-search-form-skeleton";
 
 import buttonOptionsConfig from "../../../config/button-options-config";
 import useStyles from "./commute-search-form.styles";
 
-import options from "../../../mocks/places-mock-data";
+import { fetchLocations } from "../../../api";
 
 const initialFormState = {
   from: null,
@@ -35,11 +39,23 @@ const CommuteSearchForm = (props) => {
     (formData) => !formData
   );
 
+  const { isLoading, error, data } = useQuery("locations", fetchLocations);
+
+  console.log({ isLoading, error, data });
+
+  if (isLoading) {
+    return <CommuteSearchFormSkeleton />;
+  }
+
+  if (error) {
+    return <CustomAlert error={error} />;
+  }
+
   return (
     <div className={classes.container}>
       <CustomAutocomplete
         label="From"
-        options={options}
+        options={data}
         selectedValue={from}
         handleSelectionChange={handleSelectionChange("from")}
         excludeOption={to}
@@ -47,7 +63,7 @@ const CommuteSearchForm = (props) => {
       />
       <CustomAutocomplete
         label="To"
-        options={options}
+        options={data}
         selectedValue={to}
         handleSelectionChange={handleSelectionChange("to")}
         excludeOption={from}

@@ -4,6 +4,9 @@ import ReactDOM from "react-dom";
 import Container from "@material-ui/core/Container";
 
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 import App from "./views/commute-search";
 
@@ -18,9 +21,11 @@ const theme = createTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <Container maxWidth="sm">
-      <App />
-    </Container>
+    <QueryClientProvider client={queryClient}>
+      <Container maxWidth="sm">
+        <App />
+      </Container>
+    </QueryClientProvider>
   </ThemeProvider>,
   document.getElementById("root")
 );
