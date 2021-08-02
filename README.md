@@ -1,4 +1,4 @@
-# This is UI demo Rizek
+# This is UI demo for Rizek
 
 - The entire code was written in [StackBlitz ⚡️](https://stackblitz.com/edit/rizek-demo) and can be checked there as well; The purpose for doing so was that it automatically hosts the code.
 
