@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useQuery } from "react-query";
 
 import Button from "@material-ui/core/Button";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-
-import { useQuery } from "react-query";
 
 import CustomAutocomplete from "../../../components/custom-autocomplete";
 import CustomButtonGroup from "../../../components/custom-button-group";
@@ -40,8 +39,6 @@ const CommuteSearchForm = (props) => {
   );
 
   const { isLoading, error, data } = useQuery("locations", fetchLocations);
-
-  console.log({ isLoading, error, data });
 
   if (isLoading) {
     return <CommuteSearchFormSkeleton />;

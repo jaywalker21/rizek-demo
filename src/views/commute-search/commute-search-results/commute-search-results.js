@@ -1,30 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useQuery } from "react-query";
 
 import Button from "@material-ui/core/Button";
 import ReplayOutlinedIcon from "@material-ui/icons/ReplayOutlined";
 
-import CommuteSearchResultCard from "./commute-search-result-card";
+import CustomAlert from "../../../components/custom-alert";
 
-import results from "../../../mocks/search-results-mock-data";
+import CommuteSearchResultCard from "./commute-search-result-card";
+import CommuteSearchResultsSkeleton from "./commute-search-results-skeleton";
+
+import { fetchBestMatchingDeals } from "../../../api";
 
 const CommuteSearchResults = (props) => {
-  const { searchQuery, resetHandler } = props;
-
   const {
-    commutes,
-    currency,
-    total: { cost: totalCost, duration: totalDuration }
-  } = results;
+    searchQuery: { from, to, travelType: type },
+    resetHandler
+  } = props;
+
+  const { isLoading, data, error } = useQuery(
+    ["matchingDeals", { from, to, type }],
+    fetchBestMatchingDeals
+  );
+
+  console.log({ isLoading, data, error });
 
   const renderCards = () => {
     const commuteCards = commutes.map(
-      ({ transport, from, to, duration, cost, reference }) => {
+      ({ transport, arrival, departure, duration, cost, reference }) => {
         return (
           <CommuteSearchResultCard
             key={reference}
-            from={from}
-            to={to}
+            from={departure}
+            to={arrival}
             duration={duration}
             cost={cost}
             transport={transport}
@@ -48,6 +56,20 @@ const CommuteSearchResults = (props) => {
 
     return commuteCards;
   };
+
+  if (isLoading) {
+    return <CommuteSearchResultsSkeleton />;
+  }
+
+  if (error) {
+    return <CustomAlert error={error} />;
+  }
+
+  const {
+    commutes,
+    currency,
+    total: { cost: totalCost, duration: totalDuration }
+  } = data;
 
   return (
     <>

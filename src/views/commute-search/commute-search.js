@@ -23,7 +23,10 @@ export default () => {
       {!searchQuery ? (
         <CommuteSearchForm searchHandler={searchHandler} />
       ) : (
-        <CommuteSearchResults resetHandler={resetHandler} />
+        <CommuteSearchResults
+          resetHandler={resetHandler}
+          searchQuery={searchQuery}
+        />
       )}
     </div>
   );

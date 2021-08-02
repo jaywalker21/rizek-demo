@@ -1,10 +1,10 @@
 export default [
   {
-    id: "cheapest",
+    id: "cost",
     label: "Cheapest"
   },
   {
-    id: "fastest",
+    id: "durationInMinutes",
     label: "Fastest"
   }
 ];
